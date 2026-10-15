@@ -23,3 +23,14 @@ docker run -d \
 echo "Container is running!"
 
 docker ps
+
+echo "Checking application health..."
+
+sleep 2
+
+if docker exec "$CONTAINER_NAME" wget -qO- http://localhost >/dev/null; then
+    echo "Application health check PASSED!"
+else
+    echo "Application health check FAILED!"
+    exit 1
+fi
